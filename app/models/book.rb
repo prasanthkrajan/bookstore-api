@@ -1,4 +1,4 @@
 class Book < ApplicationRecord
-	validate_uniqueness_of :isbn_number
-	validate_presence_of :title
+	validates_uniqueness_of :isbn_number
+	validates_presence_of :title
 end
