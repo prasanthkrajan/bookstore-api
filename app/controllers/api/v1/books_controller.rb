@@ -13,12 +13,13 @@ class Api::V1::BooksController < Api::V1::BaseController
 	end
 
 	def update
-		# binding.pry
 		@book.update!(book_params)
 		render json: @book, status: :ok
 	end
 
 	def create
+		@book = Book.create!(book_params)
+		render json: @book, status: :ok
 	end
 
 	def destroy
