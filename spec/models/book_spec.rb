@@ -8,8 +8,23 @@ RSpec.describe Book, type: :model do
 	end
 
 	it 'is not valid without a book title' do
-		book_no_title = Book.new(book.attributes.merge({"title" => nil}))
-    expect(book_no_title).to_not be_valid
+		invalid_book = Book.new(book.attributes.merge({"title" => nil}))
+    expect(invalid_book).to_not be_valid
+	end
+
+	it 'is not valid without a book author' do
+		invalid_book = Book.new(book.attributes.merge({"author" => nil}))
+    expect(invalid_book).to_not be_valid
+	end
+
+	it 'is not valid without a book published_year' do
+		invalid_book = Book.new(book.attributes.merge({"published_year" => nil}))
+    expect(invalid_book).to_not be_valid
+	end
+
+	it 'is not valid without a book isbn_number' do
+		invalid_book = Book.new(book.attributes.merge({"isbn_number" => nil}))
+    expect(invalid_book).to_not be_valid
 	end
 
 	it 'is not valid with a duplicated ISBN number' do
