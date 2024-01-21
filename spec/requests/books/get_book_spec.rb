@@ -23,12 +23,9 @@ RSpec.describe 'Books', type: :request do
         get "/api/v1/books/#{book.id + 1}"
       end
       
-      it 'returns no book' do
-        expect(json.size).to eq(0)
-      end
-
-      it 'returns status code 404' do
-        expect(response).to raise_error
+      it 'returns no book and renders status code 404' do
+        expect(json['status']).to eql(404)
+        expect(json['id']).to be_nil
       end
     end
   end
