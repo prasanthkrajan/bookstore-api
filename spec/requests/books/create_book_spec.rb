@@ -23,6 +23,76 @@ RSpec.describe 'Books', type: :request do
       end
     end
 
+    context 'when any one of the important attributes besides price is omitted' do
+      context 'and the attribute is title' do
+        let(:create_params) do
+          {
+            author: 'Amor Towles',
+            published_year: 2000,
+            isbn_number: 'ISBN-250-250',
+            price: 59.00
+          }
+        end
+
+        it 'fails to create a book' do
+          expect(Book.count).to eql(0)
+          expect(json['details']['message']).to eq("Validation failed: Title can't be blank")
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'and the attribute is author' do
+        let(:create_params) do
+          {
+            title: 'A Gentleman in Moscow',
+            published_year: 2000,
+            isbn_number: 'ISBN-250-250',
+            price: 59.00
+          }
+        end
+        
+        it 'fails to create a book' do
+          expect(Book.count).to eql(0)
+          expect(json['details']['message']).to eq("Validation failed: Author can't be blank")
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'and the attribute is published_year' do
+        let(:create_params) do
+          {
+            title: 'A Gentleman in Moscow',
+            author: 'Amor Towles',
+            isbn_number: 'ISBN-250-250',
+            price: 59.00
+          }
+        end
+        
+        it 'fails to create a book' do
+          expect(Book.count).to eql(0)
+          expect(json['details']['message']).to eq("Validation failed: Published year can't be blank")
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'and the attribute is isbn_number' do
+        let(:create_params) do
+          {
+            title: 'A Gentleman in Moscow',
+            author: 'Amor Towles',
+            published_year: 2000,
+            price: 59.00
+          }
+        end
+        
+        it 'fails to create a book' do
+          expect(Book.count).to eql(0)
+          expect(json['details']['message']).to eq("Validation failed: Isbn number can't be blank")
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+    end
+
     context 'when price is omitted from params' do
     	let(:create_params) do
       	{

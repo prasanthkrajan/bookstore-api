@@ -27,6 +27,9 @@ class Api::V1::BooksController < Api::V1::BaseController
 		head :no_content
 	end
 
+	def search
+	end
+
 	private
 
 	def set_book
