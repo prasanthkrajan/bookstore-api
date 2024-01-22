@@ -5,8 +5,9 @@ RSpec.describe 'Books', type: :request do
     let(:book) { create(:book) }
 
     context 'and if data is present' do
+      let(:book_id) { book.id }
       before do
-        put "/api/v1/books/#{book.id}", params: { book: update_params }
+        put "/api/v1/books/#{book_id}", params: { book: update_params }
       end
 
       context 'and title is updated' do
@@ -141,8 +142,9 @@ RSpec.describe 'Books', type: :request do
     end
 
     context 'but if no data is present' do
+      let(:book_id) { 'bogative' }
       before do
-        get "/api/v1/books/#{book.id + 1}"
+        get "/api/v1/books/#{book_id}"
       end
       
       it 'returns no book and renders status code 404' do

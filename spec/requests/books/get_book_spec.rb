@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Books', type: :request do
 	describe 'GET /show' do
-    let(:book) { create(:book) }
-
+    before do
+      get "/api/v1/books/#{book_id}"
+    end
+    
     context 'and if data is present' do
-      before do
-        get "/api/v1/books/#{book.id}"
-      end
+      let(:book) { create(:book) }
+      let(:book_id) { book.id }
       
       it 'returns the preferred book' do
         expect(json['id']).to eq(book.id)
@@ -19,10 +20,8 @@ RSpec.describe 'Books', type: :request do
     end
 
     context 'but if no data is present' do
-      before do
-        get "/api/v1/books/#{book.id + 1}"
-      end
-      
+      let(:book_id) { 'bogative' }
+
       it 'returns no book and renders status code 404' do
         expect(json['status']).to eql(404)
         expect(json['id']).to be_nil
