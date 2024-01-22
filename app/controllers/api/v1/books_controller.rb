@@ -5,7 +5,7 @@ class Api::V1::BooksController < Api::V1::BaseController
 
 	api :GET, '/v1/books', 'To retrieve all books'
 	def index
-		@books = Book.all
+		@books ||= Book.all
 		render json: @books, status: :ok
 	end
 
