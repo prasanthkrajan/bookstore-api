@@ -32,6 +32,7 @@ gem 'apipie-rails'
 gem 'active_model_serializers'
 gem 'will_paginate'
 gem 'api-pagination'
+gem 'faker'
 
 
 group :development, :test do
@@ -39,7 +40,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_bot', '>= 6.3.0', '!= 6.4.5'
-  gem 'faker'
 end
 
 group :development do
