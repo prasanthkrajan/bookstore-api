@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Books', type: :request do
 	describe 'POST /create' do
+    let(:author) { create(:author) }
 		before do
       post "/api/v1/books", params: { book: create_params }
     end
@@ -10,7 +11,7 @@ RSpec.describe 'Books', type: :request do
       let(:create_params) do
       	{
       		title: 'A Gentleman in Moscow',
-      		author: 'Amor Towles',
+      		author_id: author.id,
       		published_year: 2000,
       		isbn_number: 'ISBN-250-250',
       		price: 59.00
@@ -27,7 +28,7 @@ RSpec.describe 'Books', type: :request do
       context 'and the attribute is title' do
         let(:create_params) do
           {
-            author: 'Amor Towles',
+            author_id: author.id,
             published_year: 2000,
             isbn_number: 'ISBN-250-250',
             price: 59.00
@@ -53,7 +54,7 @@ RSpec.describe 'Books', type: :request do
         
         it 'fails to create a book' do
           expect(Book.count).to eql(0)
-          expect(json['details']['message']).to eq("Validation failed: Author can't be blank")
+          expect(json['details']['message']).to eq("Validation failed: Author must exist, Author can't be blank")
           expect(response).to have_http_status(:unprocessable_entity)
         end
       end
@@ -62,7 +63,7 @@ RSpec.describe 'Books', type: :request do
         let(:create_params) do
           {
             title: 'A Gentleman in Moscow',
-            author: 'Amor Towles',
+            author_id: author.id,
             isbn_number: 'ISBN-250-250',
             price: 59.00
           }
@@ -79,7 +80,7 @@ RSpec.describe 'Books', type: :request do
         let(:create_params) do
           {
             title: 'A Gentleman in Moscow',
-            author: 'Amor Towles',
+            author_id: author.id,
             published_year: 2000,
             price: 59.00
           }
@@ -97,7 +98,7 @@ RSpec.describe 'Books', type: :request do
     	let(:create_params) do
       	{
       		title: 'A Gentleman in Moscow',
-      		author: 'Amor Towles',
+      		author_id: author.id,
       		published_year: 2000,
       		isbn_number: 'ISBN-250-250'
       	}
@@ -115,7 +116,7 @@ RSpec.describe 'Books', type: :request do
     	let(:create_params) do
       	{
       		title: 'A Gentleman in Moscow',
-      		author: 'Amor Towles',
+      		author_id: author.id,
       		published_year: 2000,
       		isbn_number: another_book.isbn_number
       	}

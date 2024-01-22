@@ -40,13 +40,16 @@ RSpec.describe 'Books', type: :request do
       end
 
       context 'and author is updated' do
-        let(:update_params) { book.attributes.merge({ 'author' => new_author }) }
+        let(:new_author)    { create(:author)  }
+        let(:update_params) { book.attributes.merge({ 'author_id' => new_author_id }) }
 
         context 'with a valid value' do
-          let(:new_author) { 'New Book Author' }
+          let(:new_author_id) { new_author.id }
           
           it 'returns the book with the latest author' do
-            expect(json['author']).to eq(new_author)
+            expect(json['author']['id']).to eq(new_author.id)
+            expect(json['author']['name']).to eq(new_author.name)
+            expect(json['author']['location']).to eq(new_author.location)
           end
 
           it 'returns status code 200' do
@@ -55,14 +58,14 @@ RSpec.describe 'Books', type: :request do
         end
 
         context 'but if value is null' do
-          let(:new_author) { }
+          let(:new_author_id) { }
 
           it 'does not change the book author' do
             expect(book.author).to_not eq(new_author)
           end
 
           it 'raises error and returns status code 422' do
-            expect(json['details']['message']).to eq("Validation failed: Author can't be blank")
+            expect(json['details']['message']).to eq("Validation failed: Author must exist, Author can't be blank")
             expect(response).to have_http_status(:unprocessable_entity)
           end
         end
