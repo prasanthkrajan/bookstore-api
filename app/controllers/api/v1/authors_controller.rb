@@ -5,7 +5,7 @@ class Api::V1::AuthorsController < Api::V1::BaseController
 
 	api :GET, '/v1/authors', 'To retrieve all authors'
 	def index
-		@authors ||= Author.all
+		@authors ||= Author.all.includes(:books)
 		render json: @authors, status: :ok
 	end
 
