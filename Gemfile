@@ -30,6 +30,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 gem 'apipie-rails'
 gem 'active_model_serializers'
+gem 'will_paginate'
+gem 'api-pagination'
 
 
 group :development, :test do

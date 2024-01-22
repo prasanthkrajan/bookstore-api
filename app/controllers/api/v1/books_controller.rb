@@ -6,7 +6,7 @@ class Api::V1::BooksController < Api::V1::BaseController
 	api :GET, '/v1/books', 'To retrieve all books'
 	def index
 		@books ||= Book.all
-		render json: @books, status: :ok
+		paginate json: @books, status: :ok
 	end
 
 	api :GET, '/v1/books/:id', 'To retrieve a single book, by providing book ID'
