@@ -30,11 +30,13 @@ class Api::V1::BooksController < Api::V1::BaseController
 	end
 
 	# api :POST, '/v1/books', 'To create a single book, by providing attributes required'
- #  param :title, String, desc: 'Title of book', required: true
- #  param :author, String, desc: 'Author of book', required: true
- #  param :published_year, String, desc: 'Year book was published', required: true
- #  param :isbn_number, String, desc: 'ISBN number of book', required: true
- #  param :price, String, desc: 'Price of book', required: false
+	# param :book, Hash, desc: 'Book info', required: true do
+	# 	param :title, String, desc: 'Title of book', required: true
+	#   param :author, String, desc: 'Author of book', required: true
+	#   param :published_year, String, desc: 'Year book was published', required: true
+	#   param :isbn_number, String, desc: 'ISBN number of book', required: true
+	#   param :price, String, desc: 'Price of book', required: false
+	# end
 	def create
 		@book = Book.create!(book_params)
 		render json: @book, status: :ok
